@@ -1,0 +1,25 @@
+version: '3.6'
+
+
+services:
+    sqlserver:
+        # OPTIONAL
+        #build: 
+            #context: .
+            #dockerfile: dockerfiles/SQLServer.Dockerfile
+        image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+        volumes:
+            - ./:/volume
+        ports:
+            - 1433:1433
+        environment:
+            SA_PASSWORD: "yourStrongPassword(!)"
+            MSSQL_PID: "Express"
+            ACCEPT_EULA: Y
+
+        networks:
+            - sqlserver_network
+
+networks:
+    sqlserver_network:
+        driver: bridge
